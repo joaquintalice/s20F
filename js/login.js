@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', main);
 
 function main() {
     const signinForm = document.getElementById('signin-form');
-    console.log(signinForm)
     signinForm.addEventListener('submit', handleSignin)
 }
 
@@ -31,7 +30,6 @@ async function signin(email, password) {
     }
 
     const res = await fetch(SIGNIN_ENDPOINT, options);
-    console.log(res)
     if (!res.ok) return
     const data = await res.json();
 

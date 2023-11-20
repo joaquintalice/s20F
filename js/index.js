@@ -21,7 +21,6 @@ async function getAllImages() {
             return response.json();
         })
         .then(data => {
-            console.log(data.paths)
             if (data.paths.length > 0) {
                 const imagesHTML = generateImagesHTML(data.paths);
                 imageContainer.innerHTML = '';

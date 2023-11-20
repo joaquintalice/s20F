@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', main);
 
 function main() {
     const signupForm = document.getElementById('signup-form');
-    console.log(signupForm)
     signupForm.addEventListener('submit', handleSignup)
 }
 

@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', main);
 
 function main() {
     const form = document.getElementById('upload-files-form');
-    console.log(form)
     form.addEventListener('submit', handleSubmitFile);
 }
 
