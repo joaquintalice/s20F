@@ -17,7 +17,6 @@ async function handleSignin(e) {
 
     const loggedUser = await signin(emailInput.value, passwordInput.value);
     if (!loggedUser) return alert('*simulador de alerta* Hubo algún error en el login')
-    console.log(loggedUser)
     alert('*simulador de alerta* Iniciaste sesión con éxito')
 }
 
@@ -32,8 +31,16 @@ async function signin(email, password) {
     }
 
     const res = await fetch(SIGNIN_ENDPOINT, options);
+    console.log(res)
     if (!res.ok) return
     const data = await res.json();
+
+    const { id } = data.data
+    const { token } = data
+
+    localStorage.setItem('jwt', JSON.stringify(token));
+    localStorage.setItem('currentUserID', JSON.stringify(id))
+    location.href = 'index.html'
     return data
 }
 

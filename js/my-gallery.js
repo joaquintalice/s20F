@@ -9,7 +9,7 @@ async function getAllImages() {
     const token = JSON.parse(localStorage.getItem('jwt'));
     const imageContainer = document.getElementById('imageContainer');
 
-    fetch('https://sem20-2-dev-zgcj.4.us-1.fl0.io/file/serve-public-files', {
+    fetch('https://sem20-2-dev-zgcj.4.us-1.fl0.io/file/serve-private-files', {
         method: 'GET',
         headers: {
             'Authorization': token,
@@ -21,7 +21,6 @@ async function getAllImages() {
             return response.json();
         })
         .then(data => {
-            console.log(data.paths)
             if (data.paths.length > 0) {
                 const imagesHTML = generateImagesHTML(data.paths);
                 imageContainer.innerHTML = '';

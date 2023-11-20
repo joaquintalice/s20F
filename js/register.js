@@ -33,6 +33,7 @@ async function signupUser(email, password) {
     const res = await fetch(SIGNUP_ENDPOINT, options);
     if (!res.ok) return
     const data = await res.json();
+    location.href = 'signin.html'
     return data
 }
 
