@@ -21,6 +21,7 @@ async function getAllImages() {
             return response.json();
         })
         .then(data => {
+            console.log(data)
             if (data.paths.length > 0) {
                 const imagesHTML = generateImagesHTML(data.paths);
                 imageContainer.innerHTML = '';
@@ -38,11 +39,10 @@ async function getAllImages() {
 
 
 function generateImagesHTML(paths) {
-    const HOST_SV = 'https://sem20-2-dev-zgcj.4.us-1.fl0.io';
     const columnsHTML = paths.map(path => `
         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="img__container">
-                <img class="img-fluid shadow" src="${HOST_SV}${path}" alt="Imagen">
+                <img class="img-fluid shadow" src="${path}" alt="Imagen">
             </div>
         </div>
     `).join('');
