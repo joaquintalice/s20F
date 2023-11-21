@@ -41,7 +41,7 @@ function generateImagesHTML(paths) {
     const columnsHTML = paths.map(path => `
         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="img__container">
-                <img class="img-fluid shadow" src="${HOST_SV}${path}" alt="Imagen">
+                <img class="img-fluid shadow" src="${path}" alt="Imagen">
             </div>
         </div>
     `).join('');
