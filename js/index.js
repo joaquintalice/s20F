@@ -15,7 +15,6 @@ async function getAllImages() {
             'Authorization': token,
             'Content-Type': 'application/json',
         },
-        credentials: 'include',
     })
         .then(response => {
             if (!response.ok) throw new Error('No se pudieron obtener los paths de las imágenes.');
