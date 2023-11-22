@@ -25,7 +25,7 @@ async function handleSubmitFile(e) {
 
     // Obtener los valores seleccionados
     const selectedFile = fileInput.files[0];
-    const endpointURL = privateInputRadio.checked ? 'https://sem20-2-dev-zgcj.4.us-1.fl0.io/file/private-file' : 'https://sem20-2-dev-zgcj.4.us-1.fl0.io/file/public-file';
+    const endpointURL = privateInputRadio.checked ? 'http://localhost:3005/file/private-file' : 'http://localhost:3005/file/public-file';
 
     const token = JSON.parse(localStorage.getItem('jwt'));
     if (!token) return
@@ -40,14 +40,11 @@ async function handleSubmitFile(e) {
         },
         body: formData,
     };
-    console.log(formData)
+
     const res = await fetch(endpointURL, options);
     const data = await res.json();
-    console.log(data)
+
     if (!res.ok) return alert('*alert simulator jeje* algo salió mal subiendo la imagen')
     alert('*alert simulator* todo salio gud')
 
-    console.log('File:', selectedFile);
-    console.log('Endpoint:', endpointURL);
-    console.log('Data:', data);
 }
