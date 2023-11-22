@@ -6,24 +6,20 @@ function main() {
 
 async function getPrivateImages() {
     const token = JSON.parse(localStorage.getItem('jwt'));
-    const userId = JSON.parse(localStorage.getItem('currentUserID'))
 
-    // const USER_ENDPOINT = `https://sem20-2-dev-zgcj.4.us-1.fl0.io/auth/${userId}`
-    const USER_ENDPOINT = `http://localhost:3005/auth/${userId}`
+    const PRIVATE_FILES_ENDPOINT = 'https://sem20-2-dev-zgcj.4.us-1.fl0.io/file/serve-private-files'
     const options = {
         method: 'GET',
         headers: {
+            'Authorization': token,
             'Content-Type': 'application/json',
         },
     }
 
-    const res = await fetch(USER_ENDPOINT, options);
+    const res = await fetch(PRIVATE_FILES_ENDPOINT, options);
     if (!res.ok) throw new Error('No se pudieron obtener los paths de las imágenes.');
     const data = await res.json();
-    const { files, privateFile } = data
-    const allImages = [...files, ...privateFile]
-    const allImagesPaths = allImages.map(img => img.url)
-    return allImagesPaths
+    return data.paths.sort((a, b) => b.localeCompare(a))
 }
 
 async function imgContainerInnerHTML() {

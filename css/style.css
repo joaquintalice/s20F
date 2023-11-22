@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+
+.f-family {
+    font-family: 'Roboto', sans-serif;
+}
+
 .img__container {
     height: 700px;
     max-height: 700px;
@@ -39,6 +45,11 @@
     height: 100%;
     box-shadow: rgba(0, 0, 0, 0.7) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px !important;
 }
+
+.nav-hover:hover {
+    color: #BB2D3B !important;
+}
+
 
 /* loader */
 

@@ -42,11 +42,11 @@ async function postPrivateImg(file, token) {
         },
         body: file,
     };
-
+    showSpinner()
     const res = await fetch(PRIVATE_FILES_ENDPOINT, options);
     if (!res.ok) return alert('*alert simulator jeje* algo salió mal subiendo la imagen')
-    const data = await res.json();
-    console.log(data)
+    await res.json();
+    hideSpinner()
     alert('*alert simulator* todo salio gud')
 }
 
@@ -59,10 +59,26 @@ async function postPublicImg(file, token) {
         },
         body: file,
     };
-
+    showSpinner()
     const res = await fetch(PUBLIC_FILES_ENDPOINT, options);
     if (!res.ok) return alert('*alert simulator jeje* algo salió mal subiendo la imagen')
-    const data = await res.json();
-    console.log(data)
+    await res.json();
+    hideSpinner()
     alert('*alert simulator* todo salio gud')
+}
+
+function showSpinner() {
+    const contentContainer = document.getElementById('content-container');
+    const spinner = document.getElementById('spinner');
+
+    contentContainer.classList.add('d-none')
+    spinner.classList.remove('d-none')
+}
+
+function hideSpinner() {
+    const contentContainer = document.getElementById('content-container');
+    const spinner = document.getElementById('spinner');
+
+    contentContainer.classList.remove('d-none')
+    spinner.classList.add('d-none')
 }
