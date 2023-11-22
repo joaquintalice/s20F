@@ -20,7 +20,7 @@ async function getPublicImages() {
     const res = await fetch(PUBLIC_FILES_ENDPOINT, options);
     if (!res.ok) throw new Error('No se pudieron obtener los paths de las imágenes.');
     const data = await res.json();
-    return data
+    return data.paths.sort((a, b) => b.localeCompare(a))
 }
 
 async function imgContainerInnerHTML() {
@@ -28,7 +28,7 @@ async function imgContainerInnerHTML() {
     imageContainer.innerHTML = showSpinner()
     const data = await getPublicImages()
     imageContainer.innerHTML = hideSpinner()
-    const template = data.paths.length >= 1 ? imagesHTMLTemplate(data.paths) : alertMsgTemplate()
+    const template = data.length >= 1 ? imagesHTMLTemplate(data) : alertMsgTemplate()
     imageContainer.innerHTML = template
 }
 
