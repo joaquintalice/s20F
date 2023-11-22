@@ -34,7 +34,7 @@ async function handleSubmitFile(e) {
 }
 
 async function postPrivateImg(file, token) {
-    const PRIVATE_FILES_ENDPOINT = 'http://localhost:3005/file/private-file'
+    const PRIVATE_FILES_ENDPOINT = 'https://sem20-2-dev-zgcj.4.us-1.fl0.io/file/private-file'
     const options = {
         method: 'POST',
         headers: {
@@ -51,7 +51,7 @@ async function postPrivateImg(file, token) {
 }
 
 async function postPublicImg(file, token) {
-    const PUBLIC_FILES_ENDPOINT = 'http://localhost:3005/file/public-file'
+    const PUBLIC_FILES_ENDPOINT = 'https://sem20-2-dev-zgcj.4.us-1.fl0.io/file/public-file'
     const options = {
         method: 'POST',
         headers: {

@@ -8,7 +8,7 @@ function main() {
 async function getPublicImages() {
     const token = JSON.parse(localStorage.getItem('jwt'));
 
-    const PUBLIC_FILES_ENDPOINT = 'http://localhost:3005/file/serve-public-files'
+    const PUBLIC_FILES_ENDPOINT = 'https://sem20-2-dev-zgcj.4.us-1.fl0.io/file/serve-public-files'
     const options = {
         method: 'GET',
         headers: {
