@@ -8,8 +8,7 @@ async function getPrivateImages() {
     const token = JSON.parse(localStorage.getItem('jwt'));
     const userId = JSON.parse(localStorage.getItem('currentUserID'))
 
-    // const USER_ENDPOINT = `https://sem20-2-dev-zgcj.4.us-1.fl0.io/auth/${userId}`
-    const USER_ENDPOINT = `http://localhost:3005/auth/${userId}`
+    const USER_ENDPOINT = `https://sem20-2-dev-zgcj.4.us-1.fl0.io/auth/${userId}`
     const options = {
         method: 'GET',
         headers: {
