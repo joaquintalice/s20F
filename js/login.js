@@ -20,7 +20,7 @@ async function handleSignin(e) {
 }
 
 async function signin(email, password) {
-    const SIGNIN_ENDPOINT = 'https://sem20-2-dev-zgcj.4.us-1.fl0.io/auth/signin'
+    const SIGNIN_ENDPOINT = 'http://localhost:3005/auth/signin'
     const options = {
         method: 'POST',
         headers: {
