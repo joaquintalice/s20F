@@ -20,7 +20,7 @@ async function handleSignup(e) {
 }
 
 async function signupUser(email, password) {
-    const SIGNUP_ENDPOINT = 'http://localhost:3005/auth/signup'
+    const SIGNUP_ENDPOINT = 'https://sem20-2-dev-zgcj.4.us-1.fl0.io/auth/signup'
     const options = {
         method: 'POST',
         headers: {
