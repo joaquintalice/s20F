@@ -1,51 +1,64 @@
 document.addEventListener('DOMContentLoaded', main);
 
 function main() {
-    getAllImages();
+    imgContainerInnerHTML();
 }
 
 
-async function getAllImages() {
+async function getPublicImages() {
     const token = JSON.parse(localStorage.getItem('jwt'));
-    const imageContainer = document.getElementById('imageContainer');
 
-    fetch('https://sem20-2-dev-zgcj.4.us-1.fl0.io/file/serve-public-files', {
+    const PUBLIC_FILES_ENDPOINT = 'http://localhost:3005/file/serve-public-files'
+    const options = {
         method: 'GET',
         headers: {
             'Authorization': token,
             'Content-Type': 'application/json',
         },
-    })
-        .then(response => {
-            if (!response.ok) throw new Error('No se pudieron obtener los paths de las imágenes.');
-            return response.json();
-        })
-        .then(data => {
-            console.log(data)
-            if (data.paths.length > 0) {
-                const imagesHTML = generateImagesHTML(data.paths);
-                imageContainer.innerHTML = '';
-                imageContainer.innerHTML = imagesHTML;
-                return;
-            }
-            const imagesHTML = `<h2 class="text-light text-center ">Aún no hay contenido</h2>`
-            imageContainer.innerHTML = '';
-            imageContainer.innerHTML = imagesHTML;
-        })
-        .catch(error => {
-            console.error('Error al obtener los paths de las imágenes:', error.message);
-        });
+    }
+
+    const res = await fetch(PUBLIC_FILES_ENDPOINT, options);
+    if (!res.ok) throw new Error('No se pudieron obtener los paths de las imágenes.');
+    const data = await res.json();
+    return data
 }
 
+async function imgContainerInnerHTML() {
+    const imageContainer = document.getElementById('imageContainer');
+    imageContainer.innerHTML = showSpinner()
+    const data = await getPublicImages()
+    imageContainer.innerHTML = hideSpinner()
+    const template = data.paths.length >= 1 ? imagesHTMLTemplate(data.paths) : alertMsgTemplate()
+    imageContainer.innerHTML = template
+}
 
-function generateImagesHTML(paths) {
-    const columnsHTML = paths.map(path => `
+function alertMsgTemplate() {
+    return `<h2 class="text-light text-center ">Aún no hay contenido</h2>`
+}
+
+function imagesHTMLTemplate(paths) {
+    return paths.map(path => `
         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="img__container">
                 <img class="img-fluid shadow" src="${path}" alt="Imagen">
             </div>
         </div>
     `).join('');
+}
 
-    return `<div class="row gx-4 gy-4 my-5">${columnsHTML}</div>`;
+
+function showSpinner() {
+    return `
+    <div class="d-flex justify-content-center">
+        <div class="orbit-spinner">
+            <div class="orbit"></div>
+            <div class="orbit"></div>
+            <div class="orbit"></div>
+        </div>
+    </div>
+    `
+}
+
+function hideSpinner() {
+    return ``
 }
