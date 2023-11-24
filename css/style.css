@@ -123,3 +123,36 @@
         transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
     }
 }
+
+
+
+
+#imageModal .modal-content {
+    background-color: rgb(5, 4, 4);
+    border: none;
+}
+
+#imageModal .modal-body {
+    text-align: center;
+}
+
+#modalImage {
+    max-width: 100%;
+    height: auto;
+}
+
+#imageModal .close {
+    color: rgb(255, 255, 255);
+    /* Color del botón de cerrar */
+}
+
+
+
+.zoom-effect {
+    object-view-box: inset(0%);
+    transition: all .3s;
+}
+
+.zoom-effect:hover {
+    object-view-box: inset(5%);
+}
