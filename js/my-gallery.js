@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', main);
 
 function main() {
     imgContainerInnerHTML();
+    addImageClickEvent()
 }
 
 async function getPrivateImages() {
@@ -41,13 +42,28 @@ function alertMsgTemplate() {
 function imagesHTMLTemplate(paths) {
     return paths.map(path => `
         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="img__container">
-                <img class="img-fluid shadow" src="${path}" alt="Imagen">
+            <div class="img__container" style="cursor:pointer">
+                <img class="img-fluid shadow zoom-effect" src="${path}" alt="Imagen">
             </div>
         </div>
     `).join('');
 }
 
+function addImageClickEvent() {
+    const imageContainer = document.getElementById('imageContainer');
+    imageContainer.addEventListener('click', function (event) {
+        if (event.target.tagName === 'IMG') {
+            const imageUrl = event.target.src;
+            showImageModal(imageUrl);
+        }
+    });
+}
+
+function showImageModal(imageUrl) {
+    const modalImage = document.getElementById('modalImage');
+    modalImage.src = imageUrl;
+    $('#imageModal').modal('show');
+}
 
 function showSpinner() {
     return `
