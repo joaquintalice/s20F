@@ -77,7 +77,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <img id="modalImage" class="img-fluid" src="" alt="Image">
+                        <div class="d-flex flex-column">
+                            <img id="modalImage" class="img-fluid" src="" alt="Image">
+                            <button type="button" class="btn btn-dark mt-3" id="download-btn">Descargar imagen</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,11 +88,13 @@
 
     </main>
 
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="./js/index.js"></script>
     <script src="./js/logout.js"></script>
+    <script src="./js/utils/downloadImages.js"></script>
 </body>
 
 </html>
