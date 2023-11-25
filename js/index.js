@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', main);
 
 function main() {
     imgContainerInnerHTML();
-    addImageClickEvent()
+    addImageClickEvent();
 }
 
 
@@ -60,12 +60,8 @@ function addImageClickEvent() {
 function showImageModal(imageUrl) {
     const modalImage = document.getElementById('modalImage');
     modalImage.src = imageUrl;
-
-    // Muestra el modal
     $('#imageModal').modal('show');
 }
-
-
 
 
 function showSpinner() {
