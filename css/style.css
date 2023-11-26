@@ -126,13 +126,15 @@
 
 
 
-
-#imageModal .modal-content {
+#imageModal .modal-content,
+#alertModal .modal-content {
     background-color: rgb(5, 4, 4);
     border: none;
+    border-radius: 20px;
 }
 
-#imageModal .modal-body {
+#imageModal .modal-body,
+#alertModal .modal-body {
     text-align: center;
 }
 
@@ -143,7 +145,6 @@
 
 #imageModal .close {
     color: rgb(255, 255, 255);
-    /* Color del botón de cerrar */
 }
 
 
@@ -155,4 +156,13 @@
 
 .zoom-effect:hover {
     object-view-box: inset(5%);
+}
+
+.modal-center {
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
 }
