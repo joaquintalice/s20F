@@ -38,14 +38,20 @@ function alertMsgTemplate() {
 }
 
 function imagesHTMLTemplate(paths) {
-    return paths.map(path => `
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 " >
-            <div class="img__container" style="cursor:pointer">
-                <img class="img-fluid shadow zoom-effect" src="${path}" alt="Imagen">
+    return paths.map((path, index) => {
+        const isLargeScreen = index % 5 === 0;
+        const colClass = isLargeScreen ? 'col-lg-6' : 'col-lg-3';
+
+        return `
+            <div class="col-12 col-sm-6 col-md-4 ${colClass}">
+                <div class="img__container" style="cursor:pointer">
+                    <img class="img-fluid shadow zoom-effect" src="${path}" alt="Imagen">
+                </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
+
 
 function addImageClickEvent() {
     const imageContainer = document.getElementById('imageContainer');
