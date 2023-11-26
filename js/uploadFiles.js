@@ -27,6 +27,18 @@ async function handleSubmitFile(e) {
     if (!token) return
 
     const selectedFile = fileInput.files[0];
+
+    if (!selectedFile.type.startsWith('image/')) {
+        alert('*alert simulator jeje* El archivo seleccionado no es una imagen.');
+        return;
+    }
+
+    const fileSizeInMB = selectedFile.size / (1024 * 1024);
+    if (fileSizeInMB > 6) {
+        alert('*alert simulator jeje* El archivo es demasiado grande (máximo 6 MB).');
+        return;
+    }
+
     const formData = new FormData();
     formData.append('file', selectedFile);
 
@@ -44,7 +56,11 @@ async function postPrivateImg(file, token) {
     };
     showSpinner()
     const res = await fetch(PRIVATE_FILES_ENDPOINT, options);
-    if (!res.ok) return alert('*alert simulator jeje* algo salió mal subiendo la imagen')
+    if (!res.ok) {
+        alert('*alert simulator jeje* algo salió mal subiendo la imagen')
+        hideSpinner()
+        return;
+    }
     await res.json();
     hideSpinner()
     alert('*alert simulator* todo salio gud')
@@ -61,7 +77,11 @@ async function postPublicImg(file, token) {
     };
     showSpinner()
     const res = await fetch(PUBLIC_FILES_ENDPOINT, options);
-    if (!res.ok) return alert('*alert simulator jeje* algo salió mal subiendo la imagen')
+    if (!res.ok) {
+        alert('*alert simulator jeje* algo salió mal subiendo la imagen')
+        hideSpinner()
+        return;
+    }
     await res.json();
     hideSpinner()
     alert('*alert simulator* todo salio gud')
