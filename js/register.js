@@ -10,17 +10,28 @@ async function handleSignup(e) {
     e.preventDefault();
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
+    if ((!emailInput.value && !passwordInput.value)) {
+        return showAlert('both', 'Ambos campos deben estar llenos.');
+    }
 
-    if ((!emailInput.value && !passwordInput.value) ||
-        (!emailInput.value || !passwordInput.value)) return showModal('Campos inválidos.', 'Ninguno de los dos campos debe estar vacío.')
-    if (!validateEmail(emailInput.value)) return showModal('Campos inválidos.', 'Ingresa un email válido.')
+    if (!emailInput.value) {
+        return showAlert('email', 'Debes ingresar un email.')
+    }
+
+    if (!passwordInput.value) {
+        return showAlert('password', 'Debes ingresar una contraseña.')
+    }
+
+    if (!validateEmail(emailInput.value)) {
+        return showAlert('email', 'Ingresa un email válido.');
+    }
 
     const newUser = await signupUser(emailInput.value, passwordInput.value);
     if (!newUser) return;
-    showModal('Registro exitoso.', 'Te registraste con éxito. Redirigiendo...')
+    showModal({ title: 'Registro exitoso.', description: 'Te registraste con éxito. Redirigiendo...' })
     setTimeout(() => {
         location.href = 'signin.html'
-    }, 1500);
+    }, 300);
 }
 
 async function signupUser(email, password) {
@@ -32,11 +43,18 @@ async function signupUser(email, password) {
         },
         body: JSON.stringify({ email, password }),
     }
-
+    showSpinner()
     const res = await fetch(SIGNUP_ENDPOINT, options);
-    console.log(res)
-    if (res.status === 409) return showModal('Error.', 'Ya existe un usuario con este correo.')
-    if (!res.ok) return showModal('Error.', 'Hubo algún error en el registro')
+    if (res.status === 409) {
+        showModal({ title: 'Error.', description: 'Ya existe un usuario con este correo.' });
+        hideSpinner();
+        return;
+    }
+    if (!res.ok) {
+        showModal('Error.', 'Hubo algún error en el registro')
+        hideSpinner();
+        return;
+    }
     const data = await res.json();
     return data
 }
@@ -54,7 +72,37 @@ function termsAndPols() {
 
 }
 
-function showModal(title, description) {
+function showAlert(target, description) {
+    const emailAlert = document.getElementById('emailAlert');
+    const pwAlert = document.getElementById('passwordAlert');
+
+    emailAlert.textContent = '';
+    pwAlert.textContent = '';
+
+    emailAlert.classList.remove('d-block');
+    pwAlert.classList.remove('d-block');
+
+    if (target === 'both') {
+        emailAlert.textContent = description;
+        pwAlert.textContent = description;
+        emailAlert.classList.add('d-block');
+        pwAlert.classList.add('d-block');
+    } else if (target === 'email') {
+        emailAlert.textContent = description;
+        emailAlert.classList.add('d-block');
+    } else if (target === 'clearInputs') {
+        emailAlert.classList.remove('d-block');
+        pwAlert.classList.remove('d-block');
+        emailAlert.classList.add('d-none');
+        pwAlert.classList.add('d-none');
+    } else {
+        pwAlert.textContent = description;
+        pwAlert.classList.add('d-block');
+    }
+}
+
+
+function showModal({ title, description }) {
     const modalTitle = document.getElementById('modal-title');
     const modalDescription = document.getElementById('modal-description');
     const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
@@ -66,8 +114,6 @@ function showModal(title, description) {
 }
 
 
-
-
 const validateEmail = (email) => {
     return String(email)
         .toLowerCase()
@@ -75,3 +121,20 @@ const validateEmail = (email) => {
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
 };
+
+
+function showSpinner() {
+    const signupForm = document.getElementById('signup-form');
+    const spinner = document.getElementById('spinner');
+
+    signupForm.classList.add('d-none')
+    spinner.classList.remove('d-none')
+}
+
+function hideSpinner() {
+    const signupForm = document.getElementById('signup-form');
+    const spinner = document.getElementById('spinner');
+
+    signupForm.classList.remove('d-none')
+    spinner.classList.add('d-none')
+}
