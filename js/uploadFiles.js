@@ -71,7 +71,7 @@ async function postPublicImg(file, token) {
     const options = {
         method: 'POST',
         headers: {
-            'authorization': token,
+            'authorization': `Bearer ${token}`,
         },
         body: file,
     };
