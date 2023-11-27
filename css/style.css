@@ -166,3 +166,37 @@
     justify-content: center;
     height: 100vh;
 }
+
+
+
+.page__margin {
+    margin: 0 1rem;
+}
+
+@media screen and (min-width: 576px) {
+    .page__margin {
+        margin: 0 2rem;
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+    .page__margin {
+        margin: 0 3.5rem;
+    }
+
+}
+
+@media screen and (min-width: 992px) {
+    .page__margin {
+        margin: 0 5rem;
+    }
+
+}
+
+@media screen and (min-width: 1200px) {
+    .page__margin {
+        margin: 0 7rem;
+    }
+
+}
