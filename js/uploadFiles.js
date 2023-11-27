@@ -13,13 +13,13 @@ async function handleSubmitFile(e) {
 
 
     if (fileInput.files.length === 0) {
-        alert('*alert simulator je* Selecciona una imagen');
+        showModal({ title: 'Error.', description: 'Debes cargar al menos un archivo.' })
         return;
     }
 
 
     if (!privateInputRadio.checked && !publicInputRadio.checked) {
-        alert('*alert simulator je* Selecciona al menos un tipo');
+        showModal({ title: 'Error.', description: 'Selecciona en dónde te gustaría subir tu archivo.' })
         return;
     }
 
@@ -29,13 +29,13 @@ async function handleSubmitFile(e) {
     const selectedFile = fileInput.files[0];
 
     if (!selectedFile.type.startsWith('image/')) {
-        alert('*alert simulator jeje* El archivo seleccionado no es una imagen.');
+        showModal({ title: 'Error.', description: 'El archivo seleccionado no es una imagen.' })
         return;
     }
 
     const fileSizeInMB = selectedFile.size / (1024 * 1024);
     if (fileSizeInMB > 6) {
-        alert('*alert simulator jeje* El archivo es demasiado grande (máximo 6 MB).');
+        showModal({ title: 'Error.', description: 'El archivo es demasiado grande. (Máximo 6mb).' })
         return;
     }
 
@@ -46,24 +46,24 @@ async function handleSubmitFile(e) {
 }
 
 async function postPrivateImg(file, token) {
-    const PRIVATE_FILES_ENDPOINT = 'https://sem20-2-dev-zgcj.4.us-1.fl0.io/file/private-file'
+    const PRIVATE_FILES_ENDPOINT = 'https://sem20-2-dev-zgcj.4.us-1.fl0.io/file/private-file';
     const options = {
         method: 'POST',
         headers: {
-            'authorization': token,
+            'authorization': `Bearer ${token}`,
         },
         body: file,
     };
     showSpinner()
     const res = await fetch(PRIVATE_FILES_ENDPOINT, options);
     if (!res.ok) {
-        alert('*alert simulator jeje* algo salió mal subiendo la imagen')
+        showModal({ title: 'Error.', description: 'Algo salió mal subiendo la imagen.' })
         hideSpinner()
         return;
     }
     await res.json();
     hideSpinner()
-    alert('*alert simulator* todo salio gud')
+    showModal({ title: 'Subida exitosa.', description: 'El archivo se subió exitosamente.' })
 }
 
 async function postPublicImg(file, token) {
@@ -78,14 +78,27 @@ async function postPublicImg(file, token) {
     showSpinner()
     const res = await fetch(PUBLIC_FILES_ENDPOINT, options);
     if (!res.ok) {
-        alert('*alert simulator jeje* algo salió mal subiendo la imagen')
+        showModal({ title: 'Error.', description: 'Algo salió mal subiendo la imagen.' });
         hideSpinner()
         return;
     }
     await res.json();
     hideSpinner()
-    alert('*alert simulator* todo salio gud')
+    showModal({ title: 'Subida exitosa.', description: 'El archivo se subió exitosamente.' });
 }
+
+
+function showModal({ title, description }) {
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+    const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+
+    modalTitle.textContent = title;
+    modalDescription.textContent = description;
+
+    alertModal.show();
+}
+
 
 function showSpinner() {
     const contentContainer = document.getElementById('content-container');
