@@ -53,6 +53,11 @@ async function signin(email, password) {
     }
     showSpinner();
     const res = await fetch(SIGNIN_ENDPOINT, options);
+    if (res.status === 503) {
+        hideSpinner();
+        showModal({ title: 'Error', description: 'Refresca la página e inténtalo de nuevo.' });
+        return;
+    }
     if (!res.ok) {
         hideSpinner();
         return;
