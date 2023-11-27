@@ -12,7 +12,7 @@ async function getPrivateImages() {
     const options = {
         method: 'GET',
         headers: {
-            'Authorization': token,
+            'authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
         },
     }
